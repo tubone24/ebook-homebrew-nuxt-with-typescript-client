@@ -24,8 +24,8 @@ export default {
   },
   buildModules: [
     "@nuxt/typescript-build",
-    // '@nuxtjs/eslint-module',
-    // '@nuxtjs/stylelint-module'
+    //'@nuxtjs/eslint-module',
+    //'@nuxtjs/stylelint-module'
   ],
   modules: [
     'nuxt-buefy',
