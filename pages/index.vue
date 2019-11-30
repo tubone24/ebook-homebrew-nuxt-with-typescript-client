@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="container">
-      <hello />
+      <hello  propHello="HelloComposition"/>
     </div>
   </section>
 </template>
