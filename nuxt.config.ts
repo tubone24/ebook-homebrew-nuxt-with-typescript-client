@@ -31,10 +31,14 @@ export default {
     'nuxt-buefy',
     "@nuxtjs/axios",
     '@nuxtjs/pwa',
+    '@nuxtjs/toast',
     ['@nuxtjs/dotenv', { systemvars: true }],
     ['nuxt-sass-resources-loader', ['@/assets/blumatheme.scss']],
   ],
   axios: {},
+  toast: {
+    position: 'top-center',
+  },
 
   generate: {
     fallback: true

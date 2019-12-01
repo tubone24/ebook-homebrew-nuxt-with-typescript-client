@@ -4,17 +4,18 @@
   "version": "2.10.2",
   "private": true,
   "dependencies": {
-    "@nuxtjs/axios": "5.8.0",
     "@nuxt/typescript-runtime": "0.2.5",
+    "@nuxtjs/axios": "5.8.0",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/toast": "^3.3.0",
     "@vue/composition-api": "^0.3.2",
+    "bulmaswatch": "^0.7.5",
     "nuxt": "2.10.2",
-    "nuxt-property-decorator": "2.5.0",
     "nuxt-buefy": "^0.3.2",
-    "vuex-class": "0.3.2",
+    "nuxt-property-decorator": "2.5.0",
     "nuxt-sass-resources-loader": "^2.0.5",
-    "bulmaswatch": "^0.7.5"
+    "vuex-class": "0.3.2"
   },
   "scripts": {
     "dev": "nuxt-ts",
