@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="container">
-      <hello  propHello="HelloComposition"/>
+      <file-list  propHello="HelloComposition"/>
     </div>
   </section>
 </template>
@@ -14,12 +14,12 @@
     computed,
     ref
   } from '@vue/composition-api';
-  import Hello from '@/components/Hello.vue';
+  import FileList from '@/components/FileList.vue';
 
   export default createComponent({
     layout: 'default',
     components: {
-      Hello
+      FileList
     },
     setup() {
     }
