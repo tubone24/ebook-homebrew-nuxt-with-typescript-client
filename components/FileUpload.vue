@@ -1,14 +1,16 @@
 <template>
   <div class="FileUpload" id="FileUpload">
-    <div>
-      <select id="format-select" v-model="state.selected">
+    <div class="select">
+      <b-field>
+      <b-select id="format-select" v-model="state.selected">
         <option disabled value="">Please select one</option>
         <option value="image/png">image/png</option>
         <option value="image/jpeg">image/jpeg</option>
         <option value="image/gif">image/gif</option>
-      </select>
-      <span id="selected-format">Image Format: {{ state.selected }}</span>
+      </b-select>
+        </b-field>
     </div>
+    <span id="selected-format">Image Format: {{ state.selected }}</span>
     <div v-if="!state.image" id="select-not-yet-image">
       <h2>Select images</h2>
       <input id="file-choice" type="file" @change="onFileChange" multiple="multiple" accept="image/*">
@@ -54,6 +56,7 @@
     ref
   } from '@vue/composition-api';
   import axios from 'axios';
+  import toast from '@nuxtjs/toast';
 
   const backendURL = 'https://ebook-homebrew.herokuapp.com/';
 
@@ -135,19 +138,36 @@
     state.converted = true;
   };
 
-  const downloadPDF = async (e: any): Promise<void> => {
-    const res = await axios.post(backendURL + 'convert/pdf/download', {
-      uploadId: state.uploadId,
-    }, {responseType: 'blob'});
-    const blob = new Blob([res.data], {type: 'application/pdf'});
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = 'result.pdf';
-    link.click();
-  };
-
   export default createComponent({
-    setup () {
+    setup (props, ctx) {
+      const toast = ctx.root.$root.$toast;
+
+      const downloadPDF = async (e: any): Promise<void> => {
+        const options = {
+          position: 'top-center',
+          duration: 2000,
+          fullWidth: true,
+          type: 'error',
+        } as any;
+        try{
+          const res = await axios.post(backendURL + 'convert/pdf/download', {
+            uploadId: state.uploadId,
+          }, {responseType: 'blob'});
+          const blob = new Blob([res.data], {type: 'application/pdf'});
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = 'result.pdf';
+          link.click();
+        } catch (e) {
+          if (e.response.status === 404) {
+            toast.show("File Not Found!!", options)
+          } else{
+            toast.show("Unknown Error!!", options)
+          }
+        }
+
+      };
+
       return {
         state,
         onFileChange,
@@ -254,6 +274,7 @@
     margin-bottom: 10px;
   }
 
-  button {
+  .select {
+    margin: auto;
   }
 </style>
