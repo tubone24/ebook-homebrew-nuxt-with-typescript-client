@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <particles-bg type="circle" :bg="true" />
     <div id="nav">
       <nuxt-link to="/">Home</nuxt-link> |
       <nuxt-link to="/sample">sample</nuxt-link> |

@@ -134,8 +134,8 @@
     border-collapse: collapse;
   }
   thead th {
-    border-bottom: 2px solid #65e44a; /*#d31c4a */
-    color: #5fe460;
+    border-bottom: 2px solid #55aa42; /*#d31c4a */
+    color: #429c43;
   }
   th,
   th {

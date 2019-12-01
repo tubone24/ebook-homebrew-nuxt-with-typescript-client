@@ -10,7 +10,3 @@
     Or try to click "Sample" at Top Nav bar, Use <b>ebook-homebrew Nuxt.js</b> client.
   </div>
 </template>
-
-<style>
-
-</style>

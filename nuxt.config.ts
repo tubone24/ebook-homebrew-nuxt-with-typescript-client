@@ -18,7 +18,7 @@ export default {
   },
   loading: { color: "#3B8070" },
   css: ["~/assets/css/main.css"],
-  plugins: ['@/plugins/compositionAPI'],
+  plugins: ['@/plugins/compositionAPI', '@/plugins/particles'],
   build: {
     extend(config, ctx) {}
   },
