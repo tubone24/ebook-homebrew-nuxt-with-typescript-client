@@ -29,7 +29,7 @@ export default {
   ],
   modules: [
     'nuxt-buefy',
-    "@nuxtjs/axios",
+    '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/toast',
     ['@nuxtjs/dotenv', { systemvars: true }],

@@ -15,6 +15,7 @@
     "nuxt-buefy": "^0.3.2",
     "nuxt-property-decorator": "2.5.0",
     "nuxt-sass-resources-loader": "^2.0.5",
+    "vue-toasted": "^1.1.27",
     "vuex-class": "0.3.2"
   },
   "scripts": {

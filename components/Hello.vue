@@ -12,7 +12,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="item in uploadList">
+      <tr v-for="item in state.uploadList">
         <th>{{ item.id }}</th>
         <th>{{ item.file_path }}</th>
         <th>{{ item.last_index }}</th>
@@ -29,12 +29,14 @@
   import {
     createComponent,
     reactive,
+    onBeforeMount,
     onMounted,
     computed,
     ref
-  } from "@vue/composition-api";
-  import axios from "axios";
-  import { AxiosPromise } from "axios";
+  } from '@vue/composition-api';
+  import axios from 'axios';
+  import toast from '@nuxtjs/toast';
+  import {PdfFileNotFoundError} from "~/types/error";
 
   const backendURL = 'https://ebook-homebrew.herokuapp.com/';
 
@@ -53,28 +55,13 @@
     console.log(JSON.stringify(state.uploadList));
   };
 
-  const doDownload = async (filePath: string): Promise<void> => {
-    const blob = await downloadPDF(filePath);
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = 'result.pdf';
-    link.click();
-  };
-
   const downloadPDF = async (filePath: string): Promise<Blob> => {
-    const options = {
-      position: 'top-center',
-      duration: 2000,
-      fullWidth: true,
-      type: 'error',
-    } as any;
+
     const res = await axios.post(backendURL + 'convert/pdf/download', { uploadId: filePath, },
       {responseType: 'blob'}).catch((err) => {
       if (err.response.status === 404) {
-        this.$toasted.show('No File!!', options);
-        throw new Error('PdfFileNotFound');
+        throw new PdfFileNotFoundError('PdfFileNotFound');
       } else {
-        this.$toasted.show('Error!!');
         throw err;
       }
     },
@@ -92,18 +79,43 @@
         type: String
       }
     },
-    setup (props: Props) {
+    setup (props: Props, ctx) {
       // props
       const propsHello = props.propHello;
 
-      // methods
+      const toast = ctx.root.$root.$toast;
 
+      const doDownload = async (filePath: string): Promise<void> => {
+        const options = {
+          position: 'top-center',
+          duration: 2000,
+          fullWidth: true,
+          type: 'error',
+        } as any;
+        try{
+          const blob = await downloadPDF(filePath);
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = 'result.pdf';
+          link.click();
+        } catch (e) {
+          if (e instanceof PdfFileNotFoundError) {
+            toast.show('No File!!', options)
+          } else {
+            toast.show('UnknownError!!', options)
+          }
+        }
+      };
 
+      onBeforeMount( async () => {
+        await updateFileList()
+        }
+      );
 
-      // 使用するデータは全てreturn
       return {
         state,
-        propsHello
+        propsHello,
+        doDownload
       };
     }
   });
