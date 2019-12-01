@@ -1,42 +1,42 @@
 <template>
   <div class="FileUpload" id="FileUpload">
     <div>
-      <select id="format-select" v-model="selected">
+      <select id="format-select" v-model="state.selected">
         <option disabled value="">Please select one</option>
         <option value="image/png">image/png</option>
         <option value="image/jpeg">image/jpeg</option>
         <option value="image/gif">image/gif</option>
       </select>
-      <span id="selected-format">Image Format: {{ selected }}</span>
+      <span id="selected-format">Image Format: {{ state.selected }}</span>
     </div>
-    <div v-if="!image" id="select-not-yet-image">
+    <div v-if="!state.image" id="select-not-yet-image">
       <h2>Select images</h2>
       <input id="file-choice" type="file" @change="onFileChange" multiple="multiple" accept="image/*">
     </div>
     <div v-else id="selected-images">
-      <div v-if="isLoading">
-        <div v-show="isLoading" id="post-file-loader" class="loader">Post File...</div>
+      <div v-if="state.isLoading">
+        <div v-show="state.isLoading" id="post-file-loader" class="loader">Post File...</div>
       </div>
       <div v-else>
-        <img :src="image" alt="select image"/>
+        <img :src="state.image" alt="select image"/>
       </div>
-      <button id="remove-image" class="btn btn-danger" @click="removeImage">Remove images</button>
-      <div v-if="selected && image">
-        <button id="post-image" class="btn btn-primary" @click="postImage">Post images</button>
+      <b-button id="remove-image" type="is-danger" @click="removeImage">Remove images</b-button>
+      <div v-if="state.selected && state.image">
+        <b-button id="post-image" type="is-primary" @click="postImage">Post images</b-button>
       </div>
-      <div v-if="this.$store.getters['fileUpload/getUploadId']">
-        <span id="upload-id">UploadId: {{ this.$store.getters['fileUpload/getUploadId'] }}</span>
+      <div v-if="state.uploadId">
+        <span id="upload-id">UploadId: {{ state.uploadId }}</span>
       </div>
-      <div v-if="this.$store.getters['fileUpload/getUploadId']">
+      <div v-if="state.uploadId">
         <div class="row">
           <div class="col-sm-6">
-            <button id="convert-images" class="btn btn-info" @click="convertImages">Convert images</button>
+            <b-button id="convert-images" type="is-info" @click="convertImages">Convert images</b-button>
           </div>
-          <div v-if="converted" class="col-sm-6">
-            <button id="download-pdf-200" class="btn btn-success" @click="downloadPDF">Download PDF</button>
+          <div v-if="state.converted" class="col-sm-6">
+            <b-button id="download-pdf-200" type="is-success" @click="downloadPDF">Download PDF</b-button>
           </div>
           <div v-else class="col-sm-6">
-            <button id="download-pdf-404" class="btn btn-warning" @click="downloadPDF">Download PDF</button>
+            <b-button id="download-pdf-404" type="is-warning" @click="downloadPDF">Download PDF</b-button>
           </div>
         </div>
       </div>
@@ -62,12 +62,16 @@
     image: string;
     images: string[];
     selected: string;
+    contentType: string;
+    uploadId: string;
     converted: boolean;
     isLoading: boolean;
   }>({
     image: '',
     images: [],
     selected: '',
+    contentType: '',
+    uploadId: '',
     converted: false,
     isLoading: false
   });
@@ -104,12 +108,60 @@
 
   const postImage = async (e: any): Promise<void> => {
     state.isLoading = true;
-    //WIP
+    state.contentType = state.selected;
+    const res = await axios.post(backendURL + 'data/upload', {
+      contentType: state.contentType,
+      images: state.images,
+    });
+    state.uploadId = res.data.upload_id;
+    state.isLoading = false;
   };
+
+  const convertImages = async (e: any): Promise<void> => {
+    await axios.post(backendURL + 'convert/pdf', {
+      contentType: state.contentType,
+      uploadId: state.uploadId,
+    });
+    let statusCode = 404;
+    while (statusCode === 200) {
+      await axios.post(backendURL + 'convert/pdf/download', {
+        uploadId: state.uploadId,
+      }).then((response) => {
+        statusCode = response.status;
+      }).catch((err) => {
+        statusCode = err.response.status;
+      });
+    }
+    state.converted = true;
+  };
+
+  const downloadPDF = async (e: any): Promise<void> => {
+    const res = await axios.post(backendURL + 'convert/pdf/download', {
+      uploadId: state.uploadId,
+    }, {responseType: 'blob'});
+    const blob = new Blob([res.data], {type: 'application/pdf'});
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'result.pdf';
+    link.click();
+  };
+
+  export default createComponent({
+    setup () {
+      return {
+        state,
+        onFileChange,
+        removeImage,
+        convertImages,
+        postImage,
+        downloadPDF
+      }
+    }
+  })
 
 </script>
 
-<style  scoped>
+<style scoped>
   .loader {
     color: #381eff;
     font-size: 90px;
@@ -126,6 +178,7 @@
     -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
     animation: load6 1.7s infinite ease, round 1.7s infinite ease;
   }
+
   @-webkit-keyframes load6 {
     0% {
       box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
@@ -148,6 +201,7 @@
       box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
     }
   }
+
   @keyframes load6 {
     0% {
       box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
@@ -170,6 +224,7 @@
       box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
     }
   }
+
   @-webkit-keyframes round {
     0% {
       -webkit-transform: rotate(0deg);
@@ -180,6 +235,7 @@
       transform: rotate(360deg);
     }
   }
+
   @keyframes round {
     0% {
       -webkit-transform: rotate(0deg);
@@ -190,12 +246,14 @@
       transform: rotate(360deg);
     }
   }
+
   img {
     width: 30%;
     margin: auto;
     display: block;
     margin-bottom: 10px;
   }
+
   button {
   }
 </style>
