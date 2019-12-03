@@ -1,5 +1,6 @@
 <template>
   <div id="status">
+    <b-button id="get-status" type="is-primary" @click="fetchStatus(store)">Get Status</b-button>
     <p>ServerStatus: <b>{{ status }}</b></p>
     <p>ServerVersion: <b>{{ version }}</b></p>
   </div>
@@ -37,7 +38,7 @@
 
     //Or Action
     //
-    store.dispatch('status/fetchServerInfo');
+    await store.dispatch('status/fetchServerInfo');
   };
 
   export default createComponent({
@@ -69,6 +70,8 @@
 
 
       return {
+        fetchStatus,
+        store,
         status,
         version,
         propsHello,

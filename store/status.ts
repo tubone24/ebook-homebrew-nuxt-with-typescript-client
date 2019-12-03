@@ -9,8 +9,8 @@ type State = {
 }
 
 export const state = (): State => ({
-  status: 'unknown',
-  version: 'unknown',
+  status: '',
+  version: '',
 });
 
 export const mutations = {
