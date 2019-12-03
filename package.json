@@ -16,6 +16,7 @@
     "nuxt-property-decorator": "2.5.0",
     "nuxt-sass-resources-loader": "^2.0.5",
     "particles-bg-vue": "^1.1.1",
+    "tslint": "^5.20.1",
     "vue-toasted": "^1.1.27",
     "vuex-class": "0.3.2"
   },
@@ -40,12 +41,14 @@
     "husky": "^2.6.0",
     "jest": "^24.1.0",
     "lint-staged": "^8.2.1",
-    "prettier": "^1.16.4",
-    "stylelint": "^10.1.0",
-    "vue-jest": "^4.0.0-0",
     "node-sass": "^4.13.0",
-    "sass-loader": "^8.0.0",
     "nuxt-property-decorator": "^2.5.0",
+    "prettier": "^1.16.4",
+    "sass-loader": "^8.0.0",
+    "stylelint": "^10.1.0",
+    "stylelint-order": "^3.1.1",
+    "stylelint-scss": "^3.13.0",
+    "vue-jest": "^4.0.0-0",
     "vue-property-decorator": "^8.3.0"
   }
 }
