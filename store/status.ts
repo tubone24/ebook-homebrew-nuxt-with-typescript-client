@@ -1,25 +1,47 @@
 import axios from 'axios';
-import {SET_STATUS} from '~/store/mutationType';
+import {SET_STATUS, SET_VERSION} from '~/store/mutationType';
 
-export const state = () => ({
-  status: 'test',
+const backendURL = 'https://ebook-homebrew.herokuapp.com/';
+
+type State = {
+  status: string;
+  version: string;
+}
+
+export const state = (): State => ({
+  status: 'unknown',
+  version: '',
 });
 
 export const mutations = {
-  [SET_STATUS](state, status) {
-    console.log('setstatus')
+  [SET_STATUS](state: State, status: string) {
+    console.log('setStatus: ' + status);
     state.status = status;
+  },
+  [SET_VERSION](state: State, version: string) {
+    console.log('setVersion: ' + version);
+    state.version = version;
   },
 };
 
 export const actions = {
-  saveStatus({ commit, status }) {
-    commit(SET_STATUS, status);
-  }
+  async fetchServerInfo({ commit }) {
+    try{
+      const res = await axios.get(backendURL + 'status');
+      commit(SET_STATUS, res.data.status);
+      commit(SET_VERSION, res.data.version);
+    } catch (e) {
+      commit(SET_STATUS, 'error');
+      commit(SET_VERSION, 'error');
+    }
+  },
 };
 
 export const getters = {
-  getStatus(state){
+  getStatus (state: State){
     return state.status
+  },
+  getVersion (state: State){
+    return state.version
   }
-}
+};
