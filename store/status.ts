@@ -10,7 +10,7 @@ type State = {
 
 export const state = (): State => ({
   status: 'unknown',
-  version: '',
+  version: 'unknown',
 });
 
 export const mutations = {
@@ -38,10 +38,10 @@ export const actions = {
 };
 
 export const getters = {
-  getStatus (state: State){
+  getStatus (state: State): string{
     return state.status
   },
-  getVersion (state: State){
+  getVersion (state: State): string{
     return state.version
   }
 };

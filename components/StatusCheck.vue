@@ -10,8 +10,10 @@
     createComponent,
     reactive,
     onBeforeMount,
+    onUpdated,
     onMounted,
     computed,
+    watch,
     ref
   } from '@vue/composition-api';
   import axios from 'axios';
@@ -55,8 +57,13 @@
       onBeforeMount( async () => {
         await fetchStatus(store);
       });
+      onUpdated( async () => {
+        await fetchStatus(store);
+      });
+
       //state with store
-      console.log((computed( () => store.getters['status/getStatus'])).value);
+      // getter
+      //
       const status = ref<string>((computed( () => store.getters['status/getStatus'])).value);
       const version = ref<string>((computed( () => store.getters['status/getVersion'])).value);
 
