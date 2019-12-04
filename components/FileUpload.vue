@@ -20,7 +20,9 @@
     </div>
     <div v-else id="selected-images">
       <div v-if="state.isLoading">
-        <div v-show="state.isLoading" id="post-file-loader" class="loader">Post File...</div>
+        <div v-show="state.isLoading" id="post-file-loader">
+          <vue-loading type="spiningDubbles" color="#333" :size="{ width: '200px', height: '200px' }"></vue-loading>
+        </div>
       </div>
       <div v-else>
         <img :src="state.image" alt="select image"/>
@@ -60,6 +62,7 @@
   } from '@vue/composition-api';
   import axios from 'axios';
   import toast from '@nuxtjs/toast';
+  import { VueLoading } from 'vue-loading-template';
 
   const backendURL = 'https://ebook-homebrew.herokuapp.com/';
 
@@ -142,6 +145,9 @@
   };
 
   export default createComponent({
+    components: {
+      VueLoading
+    },
     setup (props, ctx) {
       const toast = ctx.root.$root.$toast;
 
