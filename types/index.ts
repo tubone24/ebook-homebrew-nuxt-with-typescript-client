@@ -1,3 +1,4 @@
-export interface Status {
+export default interface State {
   status: string;
+  version: string;
 }
