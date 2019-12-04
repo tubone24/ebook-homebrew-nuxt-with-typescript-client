@@ -30,7 +30,7 @@
         <b-button id="post-image" type="is-primary" @click="postImage">Post images</b-button>
       </div>
       <div v-if="state.uploadId">
-        <span id="upload-id">UploadId: {{ state.uploadId }}</span>
+        <b><span id="upload-id">UploadId: {{ state.uploadId }}</span></b>
       </div>
       <div v-if="state.uploadId">
         <div class="row">
