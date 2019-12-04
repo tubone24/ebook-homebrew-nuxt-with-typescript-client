@@ -13,7 +13,10 @@
     <span id="selected-format">Image Format: {{ state.selected }}</span>
     <div v-if="!state.image" id="select-not-yet-image">
       <h2>Select images</h2>
-      <input id="file-choice" type="file" @change="onFileChange" multiple="multiple" accept="image/*">
+      <div class="uploadButton">
+        select-file
+        <input id="file-choice" type="file" @change="onFileChange" multiple="multiple" accept="image/*">
+      </div>
     </div>
     <div v-else id="selected-images">
       <div v-if="state.isLoading">
@@ -276,5 +279,37 @@
 
   .select {
     margin: auto;
+  }
+  .uploadButton {
+    display:inline-block;
+    position:relative;
+    overflow:hidden;
+    border-radius:3px;
+    background:#099;
+    color:#fff;
+    text-align:center;
+    padding:10px;
+    line-height:30px;
+    width:180px;
+    cursor:pointer;
+  }
+  .uploadButton:hover {
+    background:#0aa;
+  }
+  .uploadButton input[type=file] {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+    opacity:0;
+  }
+  .uploadValue {
+    display:none;
+    background:rgba(255,255,255,0.2);
+    border-radius:3px;
+    padding:3px;
+    color:#ffffff;
   }
 </style>

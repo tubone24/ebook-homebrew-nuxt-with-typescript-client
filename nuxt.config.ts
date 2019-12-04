@@ -32,12 +32,16 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/toast',
+    '@nuxtjs/sentry',
     ['@nuxtjs/dotenv', { systemvars: true }],
     ['nuxt-sass-resources-loader', ['@/assets/blumatheme.scss']],
   ],
   axios: {},
   toast: {
     position: 'top-center',
+  },
+  sentry: {
+    dsn: 'https://53aed09dc7784d1d99581d787819166b@sentry.io/1844122',
   },
 
   generate: {

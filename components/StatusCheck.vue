@@ -116,7 +116,19 @@
     padding: 10px 0;
   }
   #get-status :hover {
-    box-shadow: 0 1px 0 rgba(136,136,136,1);
-    margin: 12px auto 8px;
+    background-color:#79acdf;
+    -webkit-box-shadow:inset 0px 0px 3px #fff;
+    -moz-box-shadow:inset 0px 0px 3px #fff;
+    box-shadow:inset 0px 0px 3px #fff;
+  }
+  #get-status :active{
+    padding-top:6px;
+    padding-bottom:4px;
+    border:1px solid #334c66;
+    background-color:#69c;
+    color:#e0ebf5;
+    -webkit-box-shadow:inset 0px 0px 8px #334c66;
+    -moz-box-shadow:inset 0px 0px 2px #3a6da0;
+    box-shadow:inset 0px 0px 2px #3a6da0;
   }
 </style>
