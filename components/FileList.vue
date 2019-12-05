@@ -30,6 +30,7 @@
     createComponent,
     reactive,
     onBeforeMount,
+    SetupContext,
     onMounted,
     computed,
     ref
@@ -78,7 +79,7 @@
         type: String
       }
     },
-    setup (props: Props, ctx) {
+    setup (props: Props, ctx:SetupContext) {
       // props
       const propsHello = props.propHello;
 

@@ -12,6 +12,7 @@
     reactive,
     onBeforeMount,
     onUpdated,
+    SetupContext,
     onMounted,
     computed,
     watch,
@@ -62,7 +63,7 @@
       }
     },
 
-    setup (props: Props, { root }) {
+    setup (props: Props, { root }:SetupContext) {
       // props
       const propsHello = props.propHello;
 

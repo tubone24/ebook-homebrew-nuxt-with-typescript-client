@@ -58,6 +58,7 @@
     onBeforeMount,
     onMounted,
     computed,
+    SetupContext,
     ref
   } from '@vue/composition-api';
   import axios from 'axios';
@@ -148,7 +149,7 @@
     components: {
       VueLoading
     },
-    setup (props, ctx) {
+    setup (props, ctx:SetupContext) {
       const toast = ctx.root.$root.$toast;
 
       const downloadPDF = async (e: any): Promise<void> => {
