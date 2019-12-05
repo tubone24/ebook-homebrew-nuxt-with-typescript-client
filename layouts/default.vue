@@ -43,8 +43,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: large;
-    text-align: center;
     color: #2c3e50;
+    text-align: center;
   }
   #nav {
     padding: 30px;

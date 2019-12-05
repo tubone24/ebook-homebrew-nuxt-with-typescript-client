@@ -35,7 +35,6 @@
     ref
   } from '@vue/composition-api';
   import axios from 'axios';
-  import toast from '@nuxtjs/toast';
   import {PdfFileNotFoundError} from "~/types/error";
 
   const backendURL = 'https://ebook-homebrew.herokuapp.com/';
