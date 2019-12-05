@@ -39,6 +39,29 @@ export default {
   axios: {},
   toast: {
     position: 'top-center',
+    register: [
+      {
+        name: 'nofileError',
+        message: 'No File!!',
+        options: {
+          position: 'top-center',
+          duration: 2000,
+          fullWidth: true,
+          type: 'error',
+        },
+      },
+      {
+        name: 'unknownError',
+        message: 'UnknownError!!',
+        options: {
+          position: 'top-center',
+          duration: 2000,
+          fullWidth: true,
+          type: 'error',
+        },
+      },
+    ],
+
   },
   sentry: {
     dsn: 'https://53aed09dc7784d1d99581d787819166b@sentry.io/1844122',

@@ -85,12 +85,6 @@
       const toast = ctx.root.$root.$toast;
 
       const doDownload = async (filePath: string): Promise<void> => {
-        const options = {
-          position: 'top-center',
-          duration: 2000,
-          fullWidth: true,
-          type: 'error',
-        } as any;
         try{
           const blob = await downloadPDF(filePath);
           const link = document.createElement('a');
@@ -99,9 +93,10 @@
           link.click();
         } catch (e) {
           if (e instanceof PdfFileNotFoundError) {
-            toast.show('No File!!', options)
+            console.log(toast)
+            toast.global.nofileError();
           } else {
-            toast.show('UnknownError!!', options)
+            toast.global.unknownError();
           }
         }
       };
