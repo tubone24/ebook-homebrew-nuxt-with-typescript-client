@@ -39,24 +39,21 @@ export default {
   axios: {},
   toast: {
     position: 'top-center',
+    duration: 2000,
+    fullWidth: true,
+    iconPack : 'material',
     register: [
       {
         name: 'nofileError',
         message: 'No File!!',
         options: {
-          position: 'top-center',
-          duration: 2000,
-          fullWidth: true,
-          type: 'error',
+          type: 'info',
         },
       },
       {
         name: 'unknownError',
         message: 'UnknownError!!',
         options: {
-          position: 'top-center',
-          duration: 2000,
-          fullWidth: true,
           type: 'error',
         },
       },
