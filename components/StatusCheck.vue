@@ -65,7 +65,6 @@
         await fetchStatus(store);
       });
 
-
       return {
         fetchStatus,
         store,

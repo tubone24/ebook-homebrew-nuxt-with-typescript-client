@@ -45,10 +45,19 @@ export const actions = {
 };
 
 export const getters = {
-  getStatus(state: State): string{
-    return state.status;
+  getStatus(state): string{
+    if (state.status.value === '') {
+      return '';
+    }else{
+      return state.status;
+    }
+
   },
-  getVersion(state: State): string{
-    return state.version;
+  getVersion(state): string{
+    if (state.version.value === '') {
+      return '';
+    }else{
+      return state.version;
+    }
   }
 };
