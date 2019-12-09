@@ -3,13 +3,18 @@ import {SET_STATUS, SET_VERSION} from '~/store/mutationType';
 import State from '@/types/index';
 import {
   reactive,
+  Ref,
   toRefs,
 } from '@vue/composition-api';
 
 const backendURL = 'https://ebook-homebrew.herokuapp.com/';
 
+declare type Refs<Data> = {
+  [K in keyof Data]: Data[K] extends Ref<infer V> ? Ref<V> : Ref<Data[K]>;
+};
 
-export const state = () => {
+
+export const state = ():Refs<State> => {
   return toRefs(reactive<{
     status: string;
     version: string;
