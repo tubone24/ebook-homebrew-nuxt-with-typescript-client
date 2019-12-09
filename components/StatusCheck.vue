@@ -1,8 +1,8 @@
 <template>
   <div id="status">
     <b-button id="get-status" type="is-primary" @click="fetchStatus(store)">Get Status NOW</b-button>
-    <p>ServerStatus: <b>{{ state.status }}</b></p>
-    <p>ServerVersion: <b>{{ state.version }}</b></p>
+    <p>ServerStatus: <b>{{ store.getters['status/getStatus'] }}</b></p>
+    <p>ServerVersion: <b>{{ store.getters['status/getVersion']  }}</b></p>
   </div>
 </template>
 
@@ -18,7 +18,6 @@
     watch,
     ref
   } from '@vue/composition-api';
-  import axios from 'axios';
 
   const backendURL = 'https://ebook-homebrew.herokuapp.com/';
 
@@ -39,22 +38,11 @@
 
     //Or Action
     //
-    const res = await store.dispatch('status/fetchServerInfo');
-
-    //Action can return response, so that can receive values and set state.
-    state.status = res.status;
-    state.version = res.version;
+    await store.dispatch('status/fetchServerInfo');
 
   };
 
-  // data
-  const state = reactive<{
-    status: string;
-    version: string;
-  }>({
-    status: '',
-    version: '',
-  });
+  // dat
 
   export default createComponent({
     props: {
@@ -77,17 +65,10 @@
         await fetchStatus(store);
       });
 
-      //state with store
-      // getter
-      //
-      // const status = ref<string>((computed( () => store.getters['status/getStatus'])).value);
-      // const version = ref<string>((computed( () => store.getters['status/getVersion'])).value);
-
 
       return {
         fetchStatus,
         store,
-        state,
         propsHello,
       };
     }
@@ -107,10 +88,10 @@
     width: 280px;
     border-radius: 3px;
     box-shadow: 0 3px 0 rgba(136,136,136,1);
-    color: #fff;
     display: block;
     font-size: 18px;
     font-weight: bold;
+    color: #fff;
     text-align: center;
     text-decoration: none;
     margin: 10px auto;
