@@ -15,10 +15,7 @@ declare type Refs<Data> = {
 
 
 export const state = ():Refs<State> => {
-  return toRefs(reactive<{
-    status: string;
-    version: string;
-  }>({
+  return toRefs(reactive<State>({
     status: '',
     version: '',
   }))
@@ -36,17 +33,14 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchServerInfo({ commit }): Promise<State> {
-    try{
-      const res = await axios.get(backendURL + 'status');
-      commit(SET_STATUS, res.data.status);
-      commit(SET_VERSION, res.data.version);
-      return {status: res.data.status, version: res.data.version};
-    } catch (e) {
+  async fetchServerInfo({ commit }): Promise<void> {
+    await axios.get(backendURL + 'status').then((response) => {
+      commit(SET_STATUS, response.data.status);
+      commit(SET_VERSION, response.data.version);
+    }).catch((err) => {
       commit(SET_STATUS, 'error');
       commit(SET_VERSION, 'error');
-      return {status: 'error', version: 'error'};
-    }
+    })
   },
 };
 
