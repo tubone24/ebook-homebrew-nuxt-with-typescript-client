@@ -13,7 +13,6 @@ declare type Refs<Data> = {
   [K in keyof Data]: Data[K] extends Ref<infer V> ? Ref<V> : Ref<Data[K]>;
 };
 
-
 export const state = ():Refs<State> => {
   return toRefs(reactive<State>({
     status: '',
@@ -45,7 +44,7 @@ export const actions = {
 };
 
 export const getters = {
-  getStatus(state): string{
+  getStatus(state: any): string{
     if (state.status.value === '') {
       return '';
     }else{
@@ -53,7 +52,7 @@ export const getters = {
     }
 
   },
-  getVersion(state): string{
+  getVersion(state: any): string{
     if (state.version.value === '') {
       return '';
     }else{
