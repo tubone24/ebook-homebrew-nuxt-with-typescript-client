@@ -1,14 +1,23 @@
 import axios from 'axios';
 import {SET_STATUS, SET_VERSION} from '~/store/mutationType';
 import State from '@/types/index';
+import {
+  reactive,
+  toRefs,
+} from '@vue/composition-api';
 
 const backendURL = 'https://ebook-homebrew.herokuapp.com/';
 
 
-export const state = (): State => ({
-  status: '',
-  version: '',
-});
+export const state = () => {
+  return toRefs(reactive<{
+    status: string;
+    version: string;
+  }>({
+    status: '',
+    version: '',
+  }))
+};
 
 export const mutations = {
   [SET_STATUS](state: State, status: string) {
