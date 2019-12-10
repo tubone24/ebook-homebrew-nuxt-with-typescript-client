@@ -1,4 +1,6 @@
-export default {
+import {Configuration} from '@nuxt/types'
+
+const nuxtConfig: Configuration = {
   mode: 'spa',
   env: {},
   head: {
@@ -20,7 +22,11 @@ export default {
   css: ['~/assets/css/main.css'],
   plugins: ['@/plugins/compositionAPI', '@/plugins/particles'],
   build: {
-    extend(config, ctx) {},
+    extend(config, { isClient }) {
+      if (isClient) {
+        config.devtool = '#source-map'
+      }
+    },
   },
   buildModules: [
     '@nuxt/typescript-build',
@@ -68,3 +74,5 @@ export default {
     fallback: true,
   },
 };
+
+module.exports = nuxtConfig;
