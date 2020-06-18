@@ -1,6 +1,6 @@
 # ebook-homebrew-nuxt-with-typescript-client
 
-> Frontend which use ebook-homebrew Rest API using Nuxt.js with TypeScript and Vuex
+> Frontend which use ebook-homebrew Rest API using Nuxt.js with TypeScript and Vuex.
 
 ## Build Setup
 
