@@ -13,7 +13,7 @@
     "@nuxtjs/toast": "^3.3.0",
     "@vue/composition-api": "^0.3.2",
     "bulmaswatch": "^0.7.5",
-    "cypress": "^4.0.1",
+    "cypress": "^4.12.1",
     "lodash": "^4.17.15",
     "nuxt": "2.10.2",
     "nuxt-buefy": "^0.3.2",
