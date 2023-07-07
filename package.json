@@ -50,7 +50,7 @@
     "nuxt-property-decorator": "^2.5.0",
     "prettier": "^1.16.4",
     "sass-loader": "^8.0.0",
-    "stylelint": "^10.1.0",
+    "stylelint": "^15.10.1",
     "stylelint-order": "^3.1.1",
     "stylelint-scss": "^3.13.0",
     "vue-jest": "^4.0.0-0",
